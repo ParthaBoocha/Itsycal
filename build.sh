@@ -32,31 +32,3 @@ cp "$ZIP_PATH1" "$ZIP_PATH2"
 # Get the date and zip file size for the Sparkle XML.
 DATE=$(TZ=GMT date)
 FILESIZE=$(stat -f "%z" "$ZIP_PATH1")
-
-# Make the Sparkle appcast XML file.
-cat > "$XML_PATH" <<EOF
-<?xml version="1.0" encoding="utf-8"?>
-<rss
-    version="2.0"
-    xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
-    xmlns:dc="http://purl.org/dc/elements/1.1/" >
-<channel>
-<title>Itsycal Changelog</title>
-<link>https://s3.amazonaws.com/itsycal/itsycal.xml</link>
-<description>Most recent changes</description>
-<language>en</language>
-<item>
-<title>Version $VERSION</title>
-<sparkle:minimumSystemVersion>10.12</sparkle:minimumSystemVersion>
-<sparkle:releaseNotesLink>https://s3.amazonaws.com/itsycal/changelog.html</sparkle:releaseNotesLink>
-<pubDate>$DATE +0000</pubDate>
-<enclosure
-    url="https://s3.amazonaws.com/itsycal/$ZIP_NAME"
-    sparkle:version="$VERSION"
-    length="$FILESIZE"
-    type="application/octet-stream" />
-</item>
-</channel>
-</rss>
-EOF
-
