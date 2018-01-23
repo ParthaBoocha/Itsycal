@@ -41,8 +41,8 @@ static const CGFloat kWindowBottomMargin = kCornerRadius + kBorderWidth;
         [self setBackgroundColor:[NSColor clearColor]];
         [self setOpaque:NO];
         [self setLevel:NSMainMenuWindowLevel];
-        [self setMovableByWindowBackground:NO];
-        [self setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
+        [self setMovableByWindowBackground:YES];
+        [self setCollectionBehavior:NSWindowCollectionBehaviorManaged];
         // Fade out when -[NSWindow orderOut:] is called.
         [self setAnimationBehavior:NSWindowAnimationBehaviorUtilityWindow];
         

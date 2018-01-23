@@ -568,6 +568,10 @@
 
 - (void)statusItemMoved:(NSNotification *)note
 {
+    //If the user hasn't pinned the window
+    if (_btnPin.state == NSOnState && [self.itsycalWindow occlusionState] & NSWindowOcclusionStateVisible) {
+        return;
+    }
     // Reposition itsycalWindow so that it remains
     // centered under _statusItemView.
     //
@@ -595,6 +599,10 @@
 
 - (void)statusItemClicked:(id)sender
 {
+    //If the user hasn't pinned the window
+    if (_btnPin.state == NSOnState && [self.itsycalWindow occlusionState] & NSWindowOcclusionStateVisible) {
+        return;
+    }
     // If there are multiple screens and Itsycal is showing
     // on one and the user clicks the menu item on another,
     // instead of a regular toggle, we want Itsycal to hide
