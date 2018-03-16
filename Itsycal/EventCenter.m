@@ -278,6 +278,14 @@ static NSString *kSelectedCalendars = @"SelectedCalendars";
     for (NSDate *date in _eventsForDate) {
         for (EventInfo *info in _eventsForDate[date]) {
             if ([selectedCalendars containsObject:info.event.calendar.calendarIdentifier]) {
+                //Remove past events for current day
+                if ([_cal isDateInToday:date] && info.event.isAllDay == NO) {
+                    NSDateComponents *todayHourComponent = [_cal components:NSCalendarUnitHour fromDate:[NSDate new]];
+                    NSInteger today1HourPrior = [todayHourComponent hour] - 1;
+                    NSDateComponents *eventHourComponent = [_cal components:NSCalendarUnitHour fromDate:info.event.startDate];
+                    NSInteger eventHour = [eventHourComponent hour];
+                    if (eventHour <= today1HourPrior) continue;
+                }
                 if (filteredEventsForDate[date] == nil) {
                     filteredEventsForDate[date] = [NSMutableArray new];
                 }
